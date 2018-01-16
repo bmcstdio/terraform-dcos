@@ -59,6 +59,7 @@ resource "google_compute_instance" "agent" {
 
   connection {
     user = "${coalesce(var.gcp_ssh_user, module.dcos-tested-gcp-oses.user)}"
+    private_key = "${file(var.gcp_ssh_key_file)}"
   }
 
   network_interface {
@@ -125,6 +126,7 @@ resource "null_resource" "agent" {
   connection {
     host = "${element(google_compute_instance.agent.*.network_interface.0.access_config.0.assigned_nat_ip, count.index)}"
     user = "${coalesce(var.gcp_ssh_user, module.dcos-tested-gcp-oses.user)}"
+    private_key = "${file(var.gcp_ssh_key_file)}"
   }
 
   count = "${var.num_of_private_agents}"

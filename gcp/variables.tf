@@ -21,6 +21,11 @@ variable "gcp_compute_subnetwork_private" {
   description = "Google compute private subnetwork"
 }
 
+variable "gcp_ssh_key_file" {
+  default = "~/.ssh/key"
+  description = "The path to the SSH private key with which to log into the DC/OS cluster."
+}
+
 variable "gcp_ssh_pub_key_file" {
  default = "~/.ssh/key.pub"
  description = "Your ssh public key to log into your the DC/OS cluster"

@@ -30,6 +30,7 @@ resource "google_compute_instance" "bootstrap" {
 
   connection {
     user = "${coalesce(var.gcp_ssh_user, module.dcos-tested-gcp-oses.user)}"
+    private_key = "${file(var.gcp_ssh_key_file)}"
   }
 
   # OS init script
@@ -232,6 +233,7 @@ resource "null_resource" "bootstrap" {
   connection {
     host = "${element(google_compute_instance.bootstrap.*.network_interface.0.access_config.0.assigned_nat_ip, 0)}"
     user = "${coalesce(var.gcp_ssh_user, module.dcos-tested-gcp-oses.user)}"
+    private_key = "${file(var.gcp_ssh_key_file)}"
   }
 
   # DCOS ip detect script
